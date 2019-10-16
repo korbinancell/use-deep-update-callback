@@ -1,7 +1,7 @@
-import { useMyHook } from './'
+import { useDeepUpdateCallback } from './';
 
-describe('useMyHook', () => {
+describe('useDeepUpdateCallback', () => {
   it('is truthy', () => {
-    expect(useMyHook).toBeTruthy()
-  })
-})
+    expect(useDeepUpdateCallback).toBeTruthy();
+  });
+});

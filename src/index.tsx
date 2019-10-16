@@ -1,23 +1,26 @@
-import * as React from 'react';
+import { useCallback } from 'react';
 
-export const useMyHook = () => {
-  let [{
-    counter
-  }, setState] = React.useState<{
-    counter: number;
-  }>({
-    counter: 0
-  });
+export function useDeepUpdateCallback<T>(
+  originalObject: T,
+  pathTo: ReadonlyArray<string>,
+  callback: (newObject: T) => void
+) {
+  const update = useCallback(
+    (newValue: any) => {
+      const layerList = [{ ...originalObject }];
+      for (let i = 0; i < pathTo.length - 1; ++i) {
+        layerList.unshift({ ...layerList[0][pathTo[i]] });
+      }
 
-  React.useEffect(() => {
-    let interval = window.setInterval(() => {
-      counter++;
-      setState({counter})
-    }, 1000)
-    return () => {
-      window.clearInterval(interval);
-    };
-  }, []);
+      layerList[0][pathTo[pathTo.length - 1]] = newValue;
+      for (let i = 1; i < pathTo.length; ++i) {
+        layerList[i][pathTo[pathTo.length - i - 1]] = layerList[i - 1];
+      }
 
-  return counter;
-};
+      callback(layerList[layerList.length - 1]);
+    },
+    [originalObject, pathTo, callback]
+  );
+
+  return update;
+}

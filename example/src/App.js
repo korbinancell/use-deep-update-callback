@@ -1,13 +1,9 @@
-import React from 'react'
+import React from 'react';
 
-import { useMyHook } from 'use-deep-update-callback'
+import { useDeepUpdateCallback } from 'use-deep-update-callback';
 
 const App = () => {
-  const example = useMyHook()
-  return (
-    <div>
-      {example}
-    </div>
-  )
-}
-export default App
+  const example = useDeepUpdateCallback();
+  return <div></div>;
+};
+export default App;
