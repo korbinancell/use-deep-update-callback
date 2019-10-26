@@ -1,27 +1,28 @@
 # use-deep-update-callback
 
-> A callback that will immutably update an object accoring to a given path.
+> A callback that will immutably update an object according to a given path.
 
 [![NPM](https://img.shields.io/npm/v/use-deep-update-callback.svg)](https://www.npmjs.com/package/use-deep-update-callback) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
 
 ```bash
-npm install --save use-deep-update-callback
+yarn add use-deep-update-callback
 ```
 
 ## Usage
 
 ```tsx
-import * as React from 'react'
-
-import { useMyHook } from 'use-deep-update-callback'
+import React, { useState } from 'react'
+import { useDeepUpdateCallback } from 'use-deep-update-callback'
 
 const Example = () => {
-  const example = useMyHook()
+  const [state, setState] = useState({ inputValues: { nameInput: { value: '' } } });
+  const onChange = useDeepUpdateCallback(state, ['inputValues', 'nameInput', 'value'], setState);
+
   return (
     <div>
-      {example}
+      <input value={state} onChange={event => onChange(event.target.value)} />
     </div>
   )
 }
