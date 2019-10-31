@@ -19,8 +19,26 @@ export function useDeepUpdateCallback<T>(
 
       callback(layerList[layerList.length - 1]);
     },
-    [originalObject, pathTo, callback]
+    [originalObject, callback, ...pathTo]
   );
 
   return update;
+}
+
+export function useDeepToggleCallback<T>(
+  originalObject: T,
+  pathTo: ReadonlyArray<string>,
+  currentValue: boolean,
+  callback: (newObject: T) => void
+) {
+  const updateCallback = useDeepUpdateCallback(
+    originalObject,
+    pathTo,
+    callback
+  );
+  const toggleCallback = useCallback(() => updateCallback(!currentValue), [
+    currentValue
+  ]);
+
+  return toggleCallback;
 }
