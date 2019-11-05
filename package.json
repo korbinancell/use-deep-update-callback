@@ -1,6 +1,6 @@
 {
   "name": "use-deep-update-callback",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A callback that will immutably update an object accoring to a given path.",
   "author": "korbinancell",
   "license": "MIT",
