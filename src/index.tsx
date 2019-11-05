@@ -37,7 +37,8 @@ export function useDeepToggleCallback<T>(
     callback
   );
   const toggleCallback = useCallback(() => updateCallback(!currentValue), [
-    currentValue
+    currentValue,
+    updateCallback
   ]);
 
   return toggleCallback;
