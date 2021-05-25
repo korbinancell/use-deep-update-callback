@@ -22,7 +22,7 @@ const Example = () => {
 
   return (
     <div>
-      <input value={state} onChange={event => onChange(event.target.value)} />
+      <input value={state.inputValues.nameImput.value} onChange={event => onChange(event.target.value)} />
     </div>
   )
 }
